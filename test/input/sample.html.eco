@@ -1,0 +1,5 @@
+---
+title: "Hello world!"
+---
+<h1><%= @document.title %></h1>
+<p><%= @foo('bar') %></p>

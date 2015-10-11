@@ -1,0 +1,24 @@
+{
+  "name": "static-site-generator",
+  "version": "1.0.0",
+  "description": "A simple and minimalistic static site generator based on Node streams",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sergey Chikuyonok <serge.che@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "graceful-fs": "^4.1.2",
+    "gray-matter": "^2.0.1",
+    "stream-combiner": "^0.2.2",
+    "through2": "^2.0.0",
+    "vinyl-fs": "^2.1.1",
+    "xtend": "^4.0.0"
+  },
+  "devDependencies": {
+    "eco": "^1.1.0-rc-3",
+    "marked": "^0.3.5",
+    "mocha": "^2.3.3"
+  }
+}
