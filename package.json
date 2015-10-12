@@ -4,12 +4,11 @@
   "description": "A simple and minimalistic static site generator based on Node streams",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/.bin/mocha --reporter spec"
   },
   "author": "Sergey Chikuyonok <serge.che@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "graceful-fs": "^4.1.2",
     "gray-matter": "^2.0.1",
     "stream-combiner": "^0.2.2",
     "through2": "^2.0.0",
