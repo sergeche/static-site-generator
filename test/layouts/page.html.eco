@@ -1,0 +1,7 @@
+---
+layout: base
+header: Layout header
+---
+<div class="wrapper">
+	<%- @content %>
+</div>

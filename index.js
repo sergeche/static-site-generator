@@ -6,7 +6,6 @@ var extend = require('xtend');
 var combine = require('stream-combiner');
 var scaffold = require('./lib/scaffold');
 var render = require('./lib/render');
-var proc = require('./lib/process');
 
 var defaultOptions = {
 	cwd: process.cwd()
@@ -27,20 +26,11 @@ module.exports = function(src, dest, options) {
  */
 var generate = module.exports.generate = function(options) {
 	options = options || {};
-
-	var pipeline = [scaffold(options.navigation)];
-
-	if (options.process) {
-		Object.keys(options.process).forEach(function(ext) {
-			pipeline.push(proc(ext, options.process[ext]));
-		});
-	}
-
-	pipeline.push(render(options.render));
-
-	return combine(pipeline);
+	return combine([
+		scaffold(options.navigation), 
+		render(options.render)
+	]);
 };
 
 module.exports.scaffold = scaffold;
 module.exports.render = render;
-module.exports.process = proc;

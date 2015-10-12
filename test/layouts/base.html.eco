@@ -1,0 +1,15 @@
+---
+title: "Base template"
+header: "Default header"
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title><%= @document.title or @meta.title %></title>
+</head>
+<body>
+	<h1><%= @meta.header %></h1>
+	<%- @content %>
+</body>
+</html>
