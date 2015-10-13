@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title><%= @document.title %></title>
+</head>
+<body>
+	<% renderMenu = (nav) => %>
+	<ul class="navigation">
+		<% for item in nav.children: %>
+			<li class="navigation-item<%= ' selected' if item.selected %>">
+				<% if item.selected is 'current': %>
+					<em class="navigation-label"><%= item.title %></em>
+				<% else: %>
+					<a href="<%= item.url %>"><%= item.title %></a>
+				<% end %>
+				<%- renderMenu(item) if item.children.length %>
+			</li>
+		<% end %>
+	</ul>
+	<% end %>
+	<nav>
+		<%- renderMenu(@navigation) %>
+	</nav>
+	<section class="content">
+		<%- @content %>
+	</section>
+</body>
+</html>

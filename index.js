@@ -3,6 +3,7 @@
 var path = require('path');
 var vfs = require('vinyl-fs');
 var extend = require('xtend');
+var debug = require('debug')('ssg:main');
 var combine = require('stream-combiner');
 var scaffold = require('./lib/scaffold');
 var render = require('./lib/render');
@@ -12,11 +13,21 @@ var defaultOptions = {
 };
 
 module.exports = function(src, dest, options) {
-	options = extend(defaultOptions, options || {});
+	options = opt(options);
 
-	return vfs.src(src, options)
-	.pipe(generate(options))
-	.pipe(vfs.dest(dest, options));
+	return combine([
+		srcStream(src, options), 
+		generate(options),
+		destStream(dest, options)
+	]);
+};
+
+var srcStream = module.exports.src = function(patterns, options) {
+	return vfs.src(patterns, opt(options));
+};
+
+var destStream = module.exports.dest = function(path, options) {
+	return vfs.dest(path, opt(options));
 };
 
 /**
@@ -26,11 +37,16 @@ module.exports = function(src, dest, options) {
  */
 var generate = module.exports.generate = function(options) {
 	options = options || {};
+	debug('generating site');
 	return combine([
-		scaffold(options.navigation), 
-		render(options.render)
+		scaffold(options), 
+		render(options)
 	]);
 };
+
+var opt = function(options) {
+	return extend(defaultOptions, options || {});
+}
 
 module.exports.scaffold = scaffold;
 module.exports.render = render;
