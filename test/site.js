@@ -21,6 +21,9 @@ describe('Site generator', function() {
 		context: {
 			foo(str) {
 				return str + '???';
+			},
+			postProcess() {
+				return '';
 			}
 		}
 	};

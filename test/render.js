@@ -83,4 +83,36 @@ describe('Render', function() {
 			done();
 		});
 	});
+
+	it('post-processors', function(done) {
+		var processed = false;
+
+		vfs.src('input/with-post-processor.html.eco', {cwd: __dirname})
+		.pipe(render({
+			renderer, 
+			cwd: __dirname,
+			context: {
+				postProcess(data) {
+					return render.postprocess(function() {
+						return new Promise(function(resolve) {
+							setTimeout(function() {
+								resolve(data = '{{' + data + '}}');
+							}, 10);
+						});
+					});
+				}
+			}
+		})).once('error', done)
+		.pipe(through.obj(function(file, enc, next) {
+			var contents = file.contents.toString();
+			assert(~contents.indexOf('{{foo}}'), 'async render complete');
+			assert.equal(path.extname(file.path), '.html');
+			processed = true;
+			next(null, file);
+		}))
+		.once('finish', function() {
+			assert(processed);
+			done();
+		});
+	});
 });

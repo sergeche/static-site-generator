@@ -15,8 +15,13 @@ var defaultOptions = {
 module.exports = function(src, dest, options) {
 	options = opt(options);
 
-	return srcStream(src, options)
-	.pipe(generate(options))
+	var stream;
+	var onError = function(err) {
+		stream.emit('error', err);
+	};
+
+	return stream = srcStream(src, options).once('error', onError)
+	.pipe(generate(options)).once('error', onError)
 	.pipe(destStream(dest, options));
 };
 
