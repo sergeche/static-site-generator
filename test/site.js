@@ -32,7 +32,7 @@ describe('Site generator', function() {
 	it('generate', function(done) {
 		ssg('input/**/*.*', './out', config)
 		.on('error', done)
-		.on('end', function() {
+		.on('finish', function() {
 			var f = file('out/about/contacts/index.html');
 			assert(~f.indexOf('<em class="navigation-label">Contacts nav item</em>'), 'Current nav item is selected')
 			assert(~f.indexOf('<a href="/with-layout.html">Page title</a>'), 'No .eco extension in nav');
