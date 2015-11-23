@@ -6,5 +6,6 @@
 </head>
 <body>
 	<%= @partial('test', data: 'foo') %>
+	<%= @partial('plain') %>
 </body>
 </html>

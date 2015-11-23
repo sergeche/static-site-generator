@@ -124,6 +124,7 @@ describe('Render', function() {
 		.pipe(through.obj(function(file, enc, next) {
 			var contents = file.contents.toString();
 			assert(~contents.indexOf('Partial: foo???'), 'async partial render');
+			assert(~contents.indexOf('<p>plain partial</p>'), 'plain partial');
 			assert.equal(path.extname(file.path), '.html');
 			processed = true;
 			next(null, file);
