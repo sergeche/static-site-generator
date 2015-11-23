@@ -115,4 +115,22 @@ describe('Render', function() {
 			done();
 		});
 	});
+
+	it('partials', function(done) {
+		var processed = false;
+
+		vfs.src('input/with-partial.html.eco', {cwd: __dirname})
+		.pipe(render({renderer, cwd: __dirname})).once('error', done)
+		.pipe(through.obj(function(file, enc, next) {
+			var contents = file.contents.toString();
+			assert(~contents.indexOf('Partial: foo???'), 'async partial render');
+			assert.equal(path.extname(file.path), '.html');
+			processed = true;
+			next(null, file);
+		}))
+		.once('finish', function() {
+			assert(processed);
+			done();
+		});
+	});
 });
