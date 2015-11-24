@@ -93,7 +93,7 @@ describe('Render', function() {
 			cwd: __dirname,
 			context: {
 				postProcess(data) {
-					return render.postprocess(function() {
+					return this.postprocess(function() {
 						return new Promise(function(resolve) {
 							setTimeout(function() {
 								resolve(data = '{{' + data + '}}');
