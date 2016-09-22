@@ -4,7 +4,7 @@ var assert = require('assert');
 var path = require('path');
 var navigation = require('../lib/navigation');
 
-describe('Navigation', function() {
+describe.only('Navigation', function() {
 	// virtual file shim
 	var file = function(path, title, order) {
 		return {
@@ -21,8 +21,11 @@ describe('Navigation', function() {
 		file('/about/index.html', 'About', 2),
 		file('/feedback/index.html', 'Feedback', 1),
 		file('/about/contacts/index.html', 'Contacts'),
-		file('/about/contacts/email.html', 'E-mail')
+		file('/about/contacts/email.html', 'E-mail'),
+		file('/about/zzz/aaa/index.html', 'Foo Bar'),
 	]);
+
+	console.log(nav);
 
 	it('create', function() {
 		assert.equal(nav.children.length, 2);
