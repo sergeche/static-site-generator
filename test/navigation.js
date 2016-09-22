@@ -1,10 +1,10 @@
 'use strict';
 
-var assert = require('assert');
-var path = require('path');
-var navigation = require('../lib/navigation');
+const assert = require('assert');
+const path = require('path');
+const navigation = require('../lib/navigation');
 
-describe.only('Navigation', function() {
+describe('Navigation', function() {
 	// virtual file shim
 	var file = function(path, title, order) {
 		return {
@@ -24,8 +24,6 @@ describe.only('Navigation', function() {
 		file('/about/contacts/email.html', 'E-mail'),
 		file('/about/zzz/aaa/index.html', 'Foo Bar'),
 	]);
-
-	console.log(nav);
 
 	it('create', function() {
 		assert.equal(nav.children.length, 2);
